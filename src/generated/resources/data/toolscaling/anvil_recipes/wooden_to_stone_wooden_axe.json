@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:wooden_axe"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:stone_axe"
+  },
+  "right": {
+    "tag": "minecraft:stone_tool_materials"
+  }
+}

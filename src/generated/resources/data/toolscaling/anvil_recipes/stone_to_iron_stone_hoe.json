@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:stone_hoe"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:iron_hoe"
+  },
+  "right": {
+    "tag": "forge:ingots/iron"
+  }
+}

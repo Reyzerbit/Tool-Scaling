@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:stone_pickaxe"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:iron_pickaxe"
+  },
+  "right": {
+    "tag": "forge:ingots/iron"
+  }
+}

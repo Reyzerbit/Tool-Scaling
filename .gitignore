@@ -1,0 +1,66 @@
+# Eclipse
+bin/
+*.launch
+.settings/
+.metadata/
+.classpath
+.project
+
+# IntelliJ IDEA
+out/
+*.ipr
+*.iws
+*.iml
+.idea/
+
+# VS Code
+.vscode/
+
+# Gradle
+build/
+.gradle/
+gradle-app.setting
+
+# Forge/Minecraft
+run/
+run-data/
+logs/
+crash-reports/
+
+# Generated resources (keep in version control for distribution)
+# Uncomment the line below if you want to exclude generated recipes
+# src/generated/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Forge MDK
+forge*changelog.txt
+
+# Logs
+*.log
+
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Exclude mod JARs but keep libs folder
+libs/*.jar
+!libs/.gitkeep
+
+# Temporary files
+*.tmp
+*.bak
+*.cache

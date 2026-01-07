@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:wooden_sword"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:stone_sword"
+  },
+  "right": {
+    "tag": "minecraft:stone_tool_materials"
+  }
+}

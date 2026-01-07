@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:iron_axe"
+  },
+  "level_cost": 3,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:diamond_axe"
+  },
+  "right": {
+    "tag": "forge:gems/diamond"
+  }
+}

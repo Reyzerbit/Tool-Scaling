@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:wooden_shovel"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:stone_shovel"
+  },
+  "right": {
+    "tag": "minecraft:stone_tool_materials"
+  }
+}

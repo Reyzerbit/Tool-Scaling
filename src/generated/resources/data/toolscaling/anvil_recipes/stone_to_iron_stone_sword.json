@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:stone_sword"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:iron_sword"
+  },
+  "right": {
+    "tag": "forge:ingots/iron"
+  }
+}
