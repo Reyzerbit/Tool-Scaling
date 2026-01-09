@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:iron_helmet"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:golden_helmet"
+  },
+  "right": {
+    "tag": "forge:ingots/gold"
+  }
+}

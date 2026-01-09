@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:iron_leggings"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:golden_leggings"
+  },
+  "right": {
+    "tag": "forge:ingots/gold"
+  }
+}

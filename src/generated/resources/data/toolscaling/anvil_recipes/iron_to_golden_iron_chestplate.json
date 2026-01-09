@@ -1,0 +1,14 @@
+{
+  "durability_mode": "PERCENTAGE",
+  "left": {
+    "item": "minecraft:iron_chestplate"
+  },
+  "level_cost": 1,
+  "material_cost": 1,
+  "result": {
+    "item": "minecraft:golden_chestplate"
+  },
+  "right": {
+    "tag": "forge:ingots/gold"
+  }
+}

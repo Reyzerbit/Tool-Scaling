@@ -26,50 +26,62 @@ public class AnvilRecipeProvider implements DataProvider
     @Override
     public CompletableFuture<?> run(CachedOutput cache)
     {
-        Path recipeFolder = this.output.getOutputFolder()
-                .resolve("data/" + ModConstants.MODID + "/anvil_recipes");
+        Path recipeFolder = this.output.getOutputFolder().resolve("data/" + ModConstants.MODID + "/anvil_recipes");
 
         // Tool types
         Item[][] tools = {
-                {Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE},
-                {Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE},
-                {Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL},
-                {Items.WOODEN_HOE, Items.STONE_HOE, Items.IRON_HOE, Items.GOLDEN_HOE, Items.DIAMOND_HOE},
-                {Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD}
+            {Items.WOODEN_PICKAXE, Items.STONE_PICKAXE, Items.IRON_PICKAXE, Items.GOLDEN_PICKAXE, Items.DIAMOND_PICKAXE},
+            {Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE},
+            {Items.WOODEN_SHOVEL, Items.STONE_SHOVEL, Items.IRON_SHOVEL, Items.GOLDEN_SHOVEL, Items.DIAMOND_SHOVEL},
+            {Items.WOODEN_HOE, Items.STONE_HOE, Items.IRON_HOE, Items.GOLDEN_HOE, Items.DIAMOND_HOE},
+            {Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.GOLDEN_SWORD, Items.DIAMOND_SWORD}
         };
 
         String[] tierNames = {"wooden", "stone", "iron", "golden", "diamond"};
         String[] upgradeMaterials = {
-                "minecraft:stone_tool_materials", // wooden -> stone
-                "forge:ingots/iron",              // stone -> iron
-                "forge:ingots/gold",              // iron -> golden
-                "forge:gems/diamond",             // golden -> diamond
-                null                               // diamond (no upgrade to netherite)
+            "minecraft:stone_tool_materials",
+            "forge:ingots/iron",
+            "forge:ingots/gold",
+            "forge:gems/diamond",
+            null
+        };
+
+        // Armor types
+        Item[][] armor = {
+            {Items.LEATHER_HELMET, Items.IRON_HELMET, Items.GOLDEN_HELMET, Items.DIAMOND_HELMET},
+            {Items.LEATHER_CHESTPLATE, Items.IRON_CHESTPLATE, Items.GOLDEN_CHESTPLATE, Items.DIAMOND_CHESTPLATE},
+            {Items.LEATHER_LEGGINGS, Items.IRON_LEGGINGS, Items.GOLDEN_LEGGINGS, Items.DIAMOND_LEGGINGS},
+            {Items.LEATHER_BOOTS, Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS}
+        };
+
+        String[] armorTierNames = {"leather", "iron", "golden", "diamond"};
+        String[] armorUpgradeMaterials = {
+            "forge:ingots/iron",
+            "forge:ingots/gold",
+            "forge:gems/diamond",
+            null
         };
 
         return CompletableFuture.allOf(
-                // Generate normal tier progression recipes
-                generateTierProgressionRecipes(cache, recipeFolder, tools, tierNames, upgradeMaterials),
-
-                // Generate special iron -> diamond shortcut recipes
-                generateIronToDiamondShortcuts(cache, recipeFolder, tools)
+            generateTierProgressionRecipes(cache, recipeFolder, tools, tierNames, upgradeMaterials, 4),
+            generateTierProgressionRecipes(cache, recipeFolder, armor, armorTierNames, armorUpgradeMaterials, 3),
+            generateShortcuts(cache, recipeFolder, tools, tierNames, 2, 4),
+            generateShortcuts(cache, recipeFolder, armor, armorTierNames, 1, 3)
         );
     }
 
-    private CompletableFuture<?> generateTierProgressionRecipes(
-            CachedOutput cache, Path recipeFolder, Item[][] tools,
-            String[] tierNames, String[] upgradeMaterials)
+    private CompletableFuture<?> generateTierProgressionRecipes(CachedOutput cache, Path recipeFolder, Item[][] items, String[] tierNames, String[] upgradeMaterials, int upgradeCount)
     {
 
-        CompletableFuture<?>[] futures = new CompletableFuture[tools.length * 4]; // 5 tool types * 4 upgrades
+        CompletableFuture<?>[] futures = new CompletableFuture[items.length * upgradeCount]; // 5 tool types * 4 upgrades
         int index = 0;
 
-        for (int toolType = 0; toolType < tools.length; toolType++)
+        for (int toolType = 0; toolType < items.length; toolType++)
         {
-            for (int tier = 0; tier < 4; tier++)
+            for (int tier = 0; tier < upgradeCount; tier++)
             { // 0-3: wood->stone, stone->iron, iron->gold, gold->diamond
-                Item baseItem = tools[toolType][tier];
-                Item resultItem = tools[toolType][tier + 1];
+                Item baseItem = items[toolType][tier];
+                Item resultItem = items[toolType][tier + 1];
                 String baseName = getItemName(baseItem);
                 String resultName = getItemName(resultItem);
                 String materialTag = upgradeMaterials[tier];
@@ -106,45 +118,40 @@ public class AnvilRecipeProvider implements DataProvider
         return CompletableFuture.allOf(futures);
     }
 
-    private CompletableFuture<?> generateIronToDiamondShortcuts(
-            CachedOutput cache, Path recipeFolder, Item[][] tools)
+    private CompletableFuture<?> generateShortcuts(CachedOutput cache, Path recipeFolder, Item[][] items, String[] tierNames, int initialTier, int shortcutTier)
     {
+        CompletableFuture<?>[] futures = new CompletableFuture[items.length]; // 5 tool types
 
-        CompletableFuture<?>[] futures = new CompletableFuture[tools.length]; // 5 tool types
-
-        for (int toolType = 0; toolType < tools.length; toolType++)
+        for (int tier = 0; tier < items.length; tier++)
         {
-            Item ironTool = tools[toolType][2]; // Iron tier (index 2)
-            Item diamondTool = tools[toolType][4]; // Diamond tier (index 4)
-            String ironName = getItemName(ironTool);
-            String diamondName = getItemName(diamondTool);
+            Item initialItem = items[tier][initialTier];
+            Item shortcutItem = items[tier][shortcutTier];
+
+            String initialItemName = getItemName(initialItem);
+            String shortcutItemName = getItemName(shortcutItem);
 
             JsonObject recipe = new JsonObject();
 
-            // Left input (iron tool)
             JsonObject left = new JsonObject();
-            left.addProperty("item", "minecraft:" + ironName);
+            left.addProperty("item", "minecraft:" + initialItemName);
             recipe.add("left", left);
 
-            // Right input (diamond)
             JsonObject right = new JsonObject();
             right.addProperty("tag", "forge:gems/diamond");
             recipe.add("right", right);
 
-            // Result (diamond tool)
             JsonObject result = new JsonObject();
-            result.addProperty("item", "minecraft:" + diamondName);
+            result.addProperty("item", "minecraft:" + shortcutItemName);
             recipe.add("result", result);
 
-            // Costs (higher for skipping tiers)
             recipe.addProperty("material_cost", 1);
             recipe.addProperty("level_cost", 3);
             recipe.addProperty("durability_mode", "PERCENTAGE");
 
-            String fileName = "iron_to_diamond_" + ironName + ".json";
+            String fileName = tierNames[initialTier] + "_to_" + tierNames[shortcutTier] + "_" + initialItemName + ".json";
             Path recipePath = recipeFolder.resolve(fileName);
 
-            futures[toolType] = DataProvider.saveStable(cache, recipe, recipePath);
+            futures[tier] = DataProvider.saveStable(cache, recipe, recipePath);
         }
 
         return CompletableFuture.allOf(futures);
