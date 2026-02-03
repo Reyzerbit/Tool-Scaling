@@ -100,4 +100,22 @@ public class AnvilToolUpgradeRecipe
     {
         return durabilityMode;
     }
+
+    public ItemStack getResultItem()
+    {
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj == this) return true;
+        if(!(obj instanceof AnvilToolUpgradeRecipe anvilRecipe)) return false;
+
+        return anvilRecipe.leftInput.equals(this.leftInput) &&
+                anvilRecipe.rightInput.equals(this.rightInput) &&
+                anvilRecipe.materialCost == this.materialCost &&
+                anvilRecipe.levelCost == this.levelCost &&
+                anvilRecipe.durabilityMode.equals(this.durabilityMode);
+    }
 }

@@ -20,3 +20,9 @@ logoFile="assets/${mod_id}/textures/gui/tool-scaling-icon.png"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+[[dependencies.${mod_id}]]
+    modId="jei"
+    mandatory=false
+    versionRange="[15.2.0.0,)"
+    ordering="AFTER"
+    side="CLIENT"
