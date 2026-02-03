@@ -110,6 +110,8 @@ tasks.named('jar', Jar).configure {
         ])
     }
 
+    archiveVersion.set("${mod_version}-${minecraft_version}")
+
     finalizedBy 'reobfJar'
 }
 
