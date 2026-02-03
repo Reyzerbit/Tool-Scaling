@@ -8,13 +8,13 @@ import com.reyzerbit.toolscaling.datagen.AnvilRecipeProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.AnvilUpdateEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 import java.nio.file.Path;
@@ -28,12 +28,12 @@ public class ToolScaling
     private AnvilRecipeMatcher recipeMatcher;
     private List<AnvilToolUpgradeRecipe> modRecipes;
 
-    public ToolScaling(FMLJavaModLoadingContext context)
+    public ToolScaling(IEventBus modEventBus)
     {
-        context.getModEventBus().addListener(this::commonSetup);
-        context.getModEventBus().addListener(this::gatherData);
-        MinecraftForge.EVENT_BUS.addListener(this::handleAnvilRecipes);
-        MinecraftForge.EVENT_BUS.addListener(this::onServerStarting);
+        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::gatherData);
+        NeoForge.EVENT_BUS.addListener(this::handleAnvilRecipes);
+        NeoForge.EVENT_BUS.addListener(this::onServerStarting);
 
         LOGGER.info("Tool Scaling mod initialized");
     }

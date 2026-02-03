@@ -6,9 +6,9 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:diamond_pickaxe"
+    "id": "minecraft:diamond_pickaxe"
   },
   "right": {
-    "tag": "forge:gems/diamond"
+    "tag": "c:gems/diamond"
   }
 }

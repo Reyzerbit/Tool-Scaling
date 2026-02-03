@@ -3,12 +3,12 @@ package com.reyzerbit.toolscaling.anvil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.mojang.logging.LogUtils;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.forgespi.language.IModFileInfo;
-import net.minecraftforge.forgespi.locating.IModFile;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforgespi.language.IModFileInfo;
+import net.neoforged.neoforgespi.locating.IModFile;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -191,10 +191,13 @@ public class AnvilRecipeLoader
         {
             JsonObject json = GSON.fromJson(reader, JsonObject.class);
 
-            Ingredient leftInput = Ingredient.fromJson(json.getAsJsonObject("left"));
-            Ingredient rightInput = Ingredient.fromJson(json.getAsJsonObject("right"));
+            Ingredient leftInput = Ingredient.CODEC.parse(JsonOps.INSTANCE, json.get("left"))
+                .getOrThrow(error -> new IOException("Failed to parse left ingredient: " + error));
+            Ingredient rightInput = Ingredient.CODEC.parse(JsonOps.INSTANCE, json.get("right"))
+                .getOrThrow(error -> new IOException("Failed to parse right ingredient: " + error));
 
-            ItemStack result = CraftingHelper.getItemStack(json.getAsJsonObject("result"), true);
+            ItemStack result = ItemStack.CODEC.parse(JsonOps.INSTANCE, json.get("result"))
+                .getOrThrow(error -> new IOException("Failed to parse result item stack: " + error));
 
             int materialCost = json.has("material_cost") ? json.get("material_cost").getAsInt() : 1;
             int levelCost = json.has("level_cost") ? json.get("level_cost").getAsInt() : 1;
@@ -217,13 +220,15 @@ public class AnvilRecipeLoader
     {
         try (InputStream inputStream = Files.newInputStream(path); InputStreamReader reader = new InputStreamReader(inputStream))
         {
-
             JsonObject json = GSON.fromJson(reader, JsonObject.class);
 
-            Ingredient leftInput = Ingredient.fromJson(json.getAsJsonObject("left"));
-            Ingredient rightInput = Ingredient.fromJson(json.getAsJsonObject("right"));
+            Ingredient leftInput = Ingredient.CODEC.parse(JsonOps.INSTANCE, json.get("left"))
+                .getOrThrow(error -> new IOException("Failed to parse left ingredient: " + error));
+            Ingredient rightInput = Ingredient.CODEC.parse(JsonOps.INSTANCE, json.get("right"))
+                .getOrThrow(error -> new IOException("Failed to parse right ingredient: " + error));
 
-            ItemStack result = CraftingHelper.getItemStack(json.getAsJsonObject("result"), true);
+            ItemStack result = ItemStack.CODEC.parse(JsonOps.INSTANCE, json.get("result"))
+                .getOrThrow(error -> new IOException("Failed to parse result item stack: " + error));
 
             int materialCost = json.has("material_cost") ? json.get("material_cost").getAsInt() : 1;
             int levelCost = json.has("level_cost") ? json.get("level_cost").getAsInt() : 1;

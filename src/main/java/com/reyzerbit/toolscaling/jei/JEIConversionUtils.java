@@ -1,12 +1,11 @@
 package com.reyzerbit.toolscaling.jei;
 
 import com.reyzerbit.toolscaling.ModConstants;
-import com.reyzerbit.toolscaling.ToolScaling;
 import com.reyzerbit.toolscaling.anvil.AnvilToolUpgradeRecipe;
 import mezz.jei.api.recipe.vanilla.IJeiAnvilRecipe;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Unmodifiable;
 
@@ -25,9 +24,9 @@ public class JEIConversionUtils
             @Override
             public @Nullable ResourceLocation getUid()
             {
-                final String from = ForgeRegistries.ITEMS.getKey(recipe.getLeftInput().getItems()[0].getItem()).getPath();
-                final String to = ForgeRegistries.ITEMS.getKey(recipe.getResultItem().getItem()).getPath();
-                return new ResourceLocation(ModConstants.MODID, from + "_to_" + to);
+                final String from = BuiltInRegistries.ITEM.getKey(recipe.getLeftInput().getItems()[0].getItem()).getPath();
+                final String to = BuiltInRegistries.ITEM.getKey(recipe.getResultItem().getItem()).getPath();
+                return ResourceLocation.fromNamespaceAndPath(ModConstants.MODID, from + "_to_" + to);
             }
         };
     }

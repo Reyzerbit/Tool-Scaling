@@ -40,9 +40,9 @@ public class AnvilRecipeProvider implements DataProvider
         String[] tierNames = {"wooden", "stone", "iron", "golden", "diamond"};
         String[] upgradeMaterials = {
             "minecraft:stone_tool_materials",
-            "forge:ingots/iron",
-            "forge:ingots/gold",
-            "forge:gems/diamond",
+            "c:ingots/iron",
+            "c:ingots/gold",
+            "c:gems/diamond",
             null
         };
 
@@ -56,9 +56,9 @@ public class AnvilRecipeProvider implements DataProvider
 
         String[] armorTierNames = {"leather", "iron", "golden", "diamond"};
         String[] armorUpgradeMaterials = {
-            "forge:ingots/iron",
-            "forge:ingots/gold",
-            "forge:gems/diamond",
+            "c:ingots/iron",
+            "c:ingots/gold",
+            "c:gems/diamond",
             null
         };
 
@@ -88,7 +88,7 @@ public class AnvilRecipeProvider implements DataProvider
 
                 JsonObject recipe = new JsonObject();
 
-                // Left input (base tool)
+                // Left input (base tool) - Ingredients use "item" not "id"
                 JsonObject left = new JsonObject();
                 left.addProperty("item", "minecraft:" + baseName);
                 recipe.add("left", left);
@@ -98,9 +98,9 @@ public class AnvilRecipeProvider implements DataProvider
                 right.addProperty("tag", materialTag);
                 recipe.add("right", right);
 
-                // Result
+                // Result - ItemStacks use "id" not "item"
                 JsonObject result = new JsonObject();
-                result.addProperty("item", "minecraft:" + resultName);
+                result.addProperty("id", "minecraft:" + resultName);
                 recipe.add("result", result);
 
                 // Costs
@@ -137,11 +137,11 @@ public class AnvilRecipeProvider implements DataProvider
             recipe.add("left", left);
 
             JsonObject right = new JsonObject();
-            right.addProperty("tag", "forge:gems/diamond");
+            right.addProperty("tag", "c:gems/diamond");
             recipe.add("right", right);
 
             JsonObject result = new JsonObject();
-            result.addProperty("item", "minecraft:" + shortcutItemName);
+            result.addProperty("id", "minecraft:" + shortcutItemName);
             recipe.add("result", result);
 
             recipe.addProperty("material_cost", 1);

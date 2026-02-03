@@ -6,9 +6,9 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:golden_hoe"
+    "id": "minecraft:golden_hoe"
   },
   "right": {
-    "tag": "forge:ingots/gold"
+    "tag": "c:ingots/gold"
   }
 }

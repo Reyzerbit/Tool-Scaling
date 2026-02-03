@@ -6,9 +6,9 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:iron_leggings"
+    "id": "minecraft:iron_leggings"
   },
   "right": {
-    "tag": "forge:ingots/iron"
+    "tag": "c:ingots/iron"
   }
 }

@@ -6,9 +6,9 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:iron_sword"
+    "id": "minecraft:iron_sword"
   },
   "right": {
-    "tag": "forge:ingots/iron"
+    "tag": "c:ingots/iron"
   }
 }

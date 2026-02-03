@@ -9,20 +9,20 @@ authors="${mod_authors}"
 description='''${mod_description}'''
 logoFile="assets/${mod_id}/textures/gui/tool-scaling-icon.png"
 [[dependencies.${mod_id}]]
-    modId="forge"
-    mandatory=true
-    versionRange="${forge_version_range}"
+    modId="neoforge"
+    type="required"
+    versionRange="[${neo_version},)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.${mod_id}]]
     modId="minecraft"
-    mandatory=true
+    type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 [[dependencies.${mod_id}]]
     modId="jei"
-    mandatory=false
-    versionRange="[15.2.0.0,)"
+    type="optional"
+    versionRange="[19.27.0.0,)"
     ordering="AFTER"
     side="CLIENT"

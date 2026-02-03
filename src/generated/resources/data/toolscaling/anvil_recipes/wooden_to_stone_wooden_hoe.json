@@ -6,7 +6,7 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:stone_hoe"
+    "id": "minecraft:stone_hoe"
   },
   "right": {
     "tag": "minecraft:stone_tool_materials"

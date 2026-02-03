@@ -6,9 +6,9 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:golden_helmet"
+    "id": "minecraft:golden_helmet"
   },
   "right": {
-    "tag": "forge:ingots/gold"
+    "tag": "c:ingots/gold"
   }
 }

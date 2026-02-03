@@ -6,9 +6,9 @@
   "level_cost": 3,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:diamond_hoe"
+    "id": "minecraft:diamond_hoe"
   },
   "right": {
-    "tag": "forge:gems/diamond"
+    "tag": "c:gems/diamond"
   }
 }

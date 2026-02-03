@@ -6,7 +6,7 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:stone_pickaxe"
+    "id": "minecraft:stone_pickaxe"
   },
   "right": {
     "tag": "minecraft:stone_tool_materials"

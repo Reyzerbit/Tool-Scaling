@@ -6,9 +6,9 @@
   "level_cost": 1,
   "material_cost": 1,
   "result": {
-    "item": "minecraft:iron_chestplate"
+    "id": "minecraft:iron_chestplate"
   },
   "right": {
-    "tag": "forge:ingots/iron"
+    "tag": "c:ingots/iron"
   }
 }

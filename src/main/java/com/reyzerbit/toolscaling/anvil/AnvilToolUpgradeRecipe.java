@@ -38,11 +38,8 @@ public class AnvilToolUpgradeRecipe
     {
         ItemStack resultCopy = this.result.copy();
 
-        // Copy ALL NBT data from input to output (enchantments, custom name, modded data, etc.)
-        if (leftItem.hasTag())
-        {
-            resultCopy.setTag(leftItem.getTag().copy());
-        }
+        // Copy ALL component data from input to output (enchantments, custom name, modded data, etc.)
+        resultCopy.applyComponents(leftItem.getComponents());
 
         // Handle durability based on mode
         if (leftItem.isDamageableItem() && resultCopy.isDamageableItem())
